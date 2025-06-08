@@ -1,0 +1,38 @@
+services:
+  llama-container2:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    container_name: llama-container2
+    tmpfs:
+      - /tmp
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+    restart: unless-stopped
+    environment:
+      - OLLAMA_KEEP_ALIVE=30m
+      - OLLAMA_NUM_PARALLEL=1
+      - OLLAMA_MAX_LOADED_MODELS=2
+      - OLLAMA_FLASH_ATTENTION=1
+
+  gradio-app:
+    build: ./app
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./chroma_db:/app/chroma_db
+    environment:
+      - LLAMA_URL=http://llama-container2:11434/v1/chat/completions
+    depends_on:
+      - llama-container2
+    container_name: gradio-app
+
+volumes:
+  ollama_data:

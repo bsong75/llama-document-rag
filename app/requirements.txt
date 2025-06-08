@@ -1,0 +1,11 @@
+gradio
+langchain-community
+langchain-text-splitters
+langchain-ollama
+langchain-core
+langchain
+chromadb
+requests
+pypdf
+docx2txt
+openpyxl  # for Excel files
