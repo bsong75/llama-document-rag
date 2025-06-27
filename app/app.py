@@ -24,7 +24,7 @@ from langchain.schema import Document
 logging.basicConfig(level=logging.INFO)
 
 # Constants
-MODEL_NAME = "llama3.2:3b"
+MODEL_NAME = "gemma3:4b"
 EMBEDDING_MODEL = "nomic-embed-text"
 VECTOR_STORE_NAME = "simple-rag"
 PERSIST_DIRECTORY = "./app/chroma_db"
